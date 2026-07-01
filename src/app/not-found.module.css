@@ -1,0 +1,240 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 3rem 1.5rem 5rem;
+  background:
+    radial-gradient(circle at top left, #dbeafe 0, transparent 35%),
+    radial-gradient(circle at bottom right, #ffedd5 0, transparent 32%),
+    #f8fafc;
+  color: #172033;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 720px);
+  padding: 3rem;
+  border: 1px solid #dce4ee;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 30px 80px rgba(11, 42, 74, 0.14);
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+.illustration {
+  position: relative;
+  width: 130px;
+  height: 118px;
+  margin: 0 auto 1.75rem;
+}
+
+.schoolRoof {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  width: 94px;
+  height: 54px;
+  background: #f97316;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.schoolBuilding {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  width: 106px;
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 13px 12px;
+  border-radius: 10px 10px 16px 16px;
+  background: #2563eb;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+}
+
+.window {
+  width: 18px;
+  height: 24px;
+  border-radius: 5px;
+  background: #bfdbfe;
+}
+
+.door {
+  width: 24px;
+  height: 38px;
+  border-radius: 6px 6px 0 0;
+  background: #ffffff;
+}
+
+.status {
+  width: fit-content;
+  margin: 0 auto 1.25rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  background: #eaf2ff;
+  color: #2563eb;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  color: #0b2a4a;
+}
+
+.description {
+  max-width: 570px;
+  margin: 1.4rem auto 0;
+  color: #66758b;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.primaryAction {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.4rem;
+  border-radius: 0.85rem;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 750;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.primaryAction:hover {
+  transform: translateY(-2px);
+  background: #1d4ed8;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.24);
+}
+
+.primaryAction:focus-visible {
+  outline: 4px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 4px;
+}
+
+.addressHint {
+  margin: 1rem 0 0;
+  color: #7a8799;
+  font-size: 0.9rem;
+}
+
+.help {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-top: 2.25rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid #dce4ee;
+  border-radius: 1rem;
+  background: #f8fafc;
+  text-align: left;
+}
+
+.help p {
+  margin: 0;
+  color: #66758b;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.helpIcon {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #0f766e;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.footer {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.5rem;
+  color: #7a8799;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.decorationOne,
+.decorationTwo {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.decorationOne {
+  top: 8%;
+  right: 8%;
+  width: 130px;
+  height: 130px;
+  border: 24px solid #fed7aa;
+}
+
+.decorationTwo {
+  bottom: 10%;
+  left: 8%;
+  width: 90px;
+  height: 90px;
+  background: #bfdbfe;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.5rem 1rem 5rem;
+  }
+
+  .card {
+    padding: 2rem 1.25rem;
+    border-radius: 1.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .decorationOne {
+    top: 2%;
+    right: -45px;
+  }
+
+  .decorationTwo {
+    bottom: 4%;
+    left: -38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryAction {
+    transition: none;
+  }
+
+  .primaryAction:hover {
+    transform: none;
+  }
+}
