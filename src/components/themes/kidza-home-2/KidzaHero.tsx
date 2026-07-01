@@ -6,8 +6,6 @@ import type { ThemeProps } from "@/lib/contracts/website";
 import styles from "./KidzaHero.module.css";
 
 export function KidzaHero({ data }: ThemeProps) {
-    const schoolHomeUrl = `/schools/${data.school.slug}`;
-
     return (
         <section
             className={styles.hero}
@@ -45,35 +43,35 @@ export function KidzaHero({ data }: ThemeProps) {
 
                     <div className={styles.actions}>
                         <Link
-                            href={`${schoolHomeUrl}#admissions`}
+                            href={data.website.hero.primaryAction.href}
                             className={styles.primaryAction}
                         >
-                            {data.website.hero.primaryActionLabel}
+                            {data.website.hero.primaryAction.label}
                         </Link>
 
                         <Link
-                            href={`${schoolHomeUrl}#about`}
+                            href={data.website.hero.secondaryAction.href}
                             className={styles.secondaryAction}
                         >
-                            {data.website.hero.secondaryActionLabel}
+                            {data.website.hero.secondaryAction.label}
                         </Link>
                     </div>
 
                     <div className={styles.trustItems}>
-                        <span>✓ Safe learning environment</span>
-                        <span>✓ Experienced educators</span>
+                        {data.website.hero.trustItems.map((item) => (
+                            <span key={item}>✓ {item}</span>
+                        ))}
                     </div>
                 </div>
 
                 <aside className={styles.infoCard}>
-                    <span className={styles.infoLabel}>Our commitment</span>
+                    <span className={styles.infoLabel}>
+                        {data.website.hero.infoCard.label}
+                    </span>
 
-                    <strong>Every child deserves an opportunity to thrive.</strong>
+                    <strong>{data.website.hero.infoCard.title}</strong>
 
-                    <p>
-                        Learning, creativity and strong character come together in one
-                        caring school community.
-                    </p>
+                    <p>{data.website.hero.infoCard.description}</p>
                 </aside>
             </div>
         </section>

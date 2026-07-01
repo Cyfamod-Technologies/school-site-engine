@@ -14,13 +14,16 @@ export function KidzaHome2Theme({ data }: ThemeProps) {
           backgroundColor: "#fffaf3",
           color: "#172033",
           fontFamily: "Arial, Helvetica, sans-serif",
-          "--theme-primary": data.website.primaryColor,
-          "--theme-secondary": data.website.secondaryColor,
+          "--theme-primary": data.website.branding.primaryColor,
+          "--theme-secondary": data.website.branding.secondaryColor,
         } as CSSProperties
       }
     >
       <KidzaHeader data={data} />
-      <KidzaHero data={data} />
+
+      {data.website.enabledSections.hero ? (
+        <KidzaHero data={data} />
+      ) : null}
     </main>
   );
 }
