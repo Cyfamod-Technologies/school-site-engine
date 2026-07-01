@@ -22,8 +22,12 @@ export interface PublicSchoolWebsite {
     secondaryColor: string;
 
     hero: {
+      eyebrow: string;
       title: string;
       description: string;
+      imageUrl: string | null;
+      primaryActionLabel: string;
+      secondaryActionLabel: string;
     };
   };
 }

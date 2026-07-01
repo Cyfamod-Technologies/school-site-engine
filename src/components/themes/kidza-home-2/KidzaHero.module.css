@@ -1,0 +1,261 @@
+.hero {
+    position: relative;
+    min-height: 680px;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+    padding: 6rem 1rem;
+    background: #0b2a4a;
+    isolation: isolate;
+}
+
+.backgroundImage {
+    z-index: -4;
+    object-fit: cover;
+    object-position: center;
+}
+
+.overlay {
+    position: absolute;
+    z-index: -3;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(6, 25, 45, 0.92) 0%,
+            rgba(6, 25, 45, 0.76) 48%,
+            rgba(6, 25, 45, 0.25) 100%);
+}
+
+.inner {
+    width: min(100% - 2rem, 1180px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.55fr);
+    align-items: end;
+    gap: 4rem;
+}
+
+.content {
+    max-width: 720px;
+}
+
+.eyebrow {
+    width: fit-content;
+    margin: 0;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+}
+
+.title {
+    max-width: 760px;
+    margin: 1.4rem 0 0;
+    color: #ffffff;
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+}
+
+.description {
+    max-width: 640px;
+    margin: 1.5rem 0 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
+.actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.primaryAction,
+.secondaryAction {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.35rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 900;
+    text-decoration: none;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.primaryAction {
+    background: var(--theme-secondary);
+    color: #ffffff;
+    box-shadow: 0 14px 30px color-mix(in srgb, var(--theme-secondary) 32%, transparent);
+}
+
+.secondaryAction {
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+}
+
+.primaryAction:hover,
+.secondaryAction:hover {
+    transform: translateY(-2px);
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible {
+    outline: 4px solid color-mix(in srgb, var(--theme-secondary) 40%, transparent);
+    outline-offset: 4px;
+}
+
+.trustItems {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+.infoCard {
+    max-width: 320px;
+    justify-self: end;
+    padding: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(14px);
+}
+
+.infoLabel {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--theme-primary);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.infoCard strong {
+    display: block;
+    color: #0b2a4a;
+    font-size: 1.25rem;
+    line-height: 1.35;
+}
+
+.infoCard p {
+    margin: 0.8rem 0 0;
+    color: #64748b;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.decorativeShapeOne,
+.decorativeShapeTwo {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.decorativeShapeOne {
+    top: -70px;
+    right: -70px;
+    width: 220px;
+    height: 220px;
+    border: 45px solid color-mix(in srgb, var(--theme-secondary) 35%, transparent);
+}
+
+.decorativeShapeTwo {
+    bottom: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background:
+        color-mix(in srgb, var(--theme-primary) 45%, transparent);
+}
+
+@media (max-width: 900px) {
+    .hero {
+        min-height: auto;
+        padding: 5rem 1rem;
+    }
+
+    .inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .infoCard {
+        max-width: 520px;
+        justify-self: start;
+    }
+
+    .overlay {
+        background: rgba(6, 25, 45, 0.78);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 4rem 1rem;
+    }
+
+    .inner {
+        width: 100%;
+    }
+
+    .title {
+        font-size: clamp(2.75rem, 14vw, 4.2rem);
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .primaryAction,
+    .secondaryAction {
+        width: 100%;
+    }
+
+    .trustItems {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .infoCard {
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .primaryAction,
+    .secondaryAction {
+        transition: none;
+    }
+
+    .primaryAction:hover,
+    .secondaryAction:hover {
+        transform: none;
+    }
+}

@@ -12,10 +12,16 @@ export const mockSchoolWebsites: Record<string, PublicSchoolWebsite> = {
       themeKey: "kidza-home-2",
       primaryColor: "#2563eb",
       secondaryColor: "#f97316",
+
       hero: {
-        title: "A better future starts here",
+        eyebrow: "Welcome to Bright Future Academy",
+        title: "A better future starts with a strong foundation",
         description:
-          "A caring school community where every child can learn, grow and become confident.",
+          "We provide a caring, creative and supportive learning environment where every child can grow in knowledge, confidence and character.",
+        imageUrl:
+          "/themes/kidza-home-2/assets/img/hero/hero-slider-1.jpg",
+        primaryActionLabel: "Apply for admission",
+        secondaryActionLabel: "Explore our school",
       },
     },
   },
@@ -31,10 +37,16 @@ export const mockSchoolWebsites: Record<string, PublicSchoolWebsite> = {
       themeKey: "kidza-home-2",
       primaryColor: "#0f766e",
       secondaryColor: "#f59e0b",
+
       hero: {
-        title: "Learning today, leading tomorrow",
+        eyebrow: "Discover Excellence Academy",
+        title: "Learning today, leading with confidence tomorrow",
         description:
-          "We help learners develop knowledge, confidence and strong character.",
+          "Our learners receive the guidance, skills and opportunities they need to become confident thinkers and responsible leaders.",
+        imageUrl:
+          "/themes/kidza-home-2/assets/img/hero/hero-slider-2.jpg",
+        primaryActionLabel: "Start your application",
+        secondaryActionLabel: "Learn about us",
       },
     },
   },
