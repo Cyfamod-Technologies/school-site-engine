@@ -21,16 +21,16 @@ export function KidzaHeader({ data }: ThemeProps) {
             className={styles.header}
             style={
                 {
-                    "--header-primary": data.website.primaryColor,
-                    "--header-secondary": data.website.secondaryColor,
+                    "--header-primary": data.website.branding.primaryColor,
+                    "--header-secondary": data.website.branding.secondaryColor,
                 } as CSSProperties
             }
         >
             <div className={styles.utilityBar}>
                 <div className={styles.utilityInner}>
-                    <p>Welcome to {data.school.name}</p>
+                    <p>{data.website.header.welcomeText}</p>
 
-                    <p>A caring place to learn and grow</p>
+                    <p>{data.website.header.utilityText}</p>
                 </div>
             </div>
 
@@ -42,8 +42,6 @@ export function KidzaHeader({ data }: ThemeProps) {
                         onClick={closeMenu}
                     >
                         {data.school.logoUrl ? (
-                            // A regular image is temporary until Laravel storage
-                            // and Next.js remote image hosts are configured.
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
                                 src={data.school.logoUrl}
@@ -58,7 +56,8 @@ export function KidzaHeader({ data }: ThemeProps) {
 
                         <span className={styles.brandText}>
                             <strong>{data.school.name}</strong>
-                            <small>Learn • Grow • Succeed</small>
+
+                            <small>{data.website.header.tagline}</small>
                         </span>
                     </Link>
 
@@ -113,7 +112,9 @@ export function KidzaHeader({ data }: ThemeProps) {
                             type="button"
                             className={styles.menuButton}
                             aria-label={
-                                isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+                                isMenuOpen
+                                    ? "Close navigation menu"
+                                    : "Open navigation menu"
                             }
                             aria-expanded={isMenuOpen}
                             aria-controls="kidza-public-navigation"
