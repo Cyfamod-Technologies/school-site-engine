@@ -13,6 +13,7 @@ export interface PublicSchoolWebsite {
     name: string;
     slug: string;
     logoUrl: string | null;
+    studentPortalUrl: string | null;
   };
 
   website: {

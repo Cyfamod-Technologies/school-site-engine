@@ -1,24 +1,24 @@
+import type { CSSProperties } from "react";
+
 import type { ThemeProps } from "@/lib/contracts/website";
+
+import { KidzaHeader } from "./KidzaHeader";
 
 export function KidzaHome2Theme({ data }: ThemeProps) {
   return (
     <main
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        color: "#172033",
-        fontFamily: "Arial, sans-serif",
-      }}
+      style={
+        {
+          minHeight: "100vh",
+          backgroundColor: "#f8fafc",
+          color: "#172033",
+          fontFamily: "Arial, sans-serif",
+          "--theme-primary": data.website.primaryColor,
+          "--theme-secondary": data.website.secondaryColor,
+        } as CSSProperties
+      }
     >
-      <header
-        style={{
-          padding: "1.25rem 2rem",
-          backgroundColor: data.website.primaryColor,
-          color: "#ffffff",
-        }}
-      >
-        <strong>{data.school.name}</strong>
-      </header>
+      <KidzaHeader data={data} />
 
       <section
         style={{
@@ -53,11 +53,11 @@ export function KidzaHome2Theme({ data }: ThemeProps) {
 
           <p
             style={{
-              margin: "0 auto",
               maxWidth: "640px",
+              margin: "0 auto",
+              color: "#66758b",
               fontSize: "1.125rem",
               lineHeight: 1.7,
-              color: "#66758b",
             }}
           >
             {data.website.hero.description}

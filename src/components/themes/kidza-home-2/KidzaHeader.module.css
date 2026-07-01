@@ -1,0 +1,288 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  color: #172033;
+}
+
+.utilityBar {
+  background: var(--header-primary);
+  color: #ffffff;
+}
+
+.utilityInner {
+  width: min(100% - 2rem, 1180px);
+  min-height: 38px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.utilityInner p {
+  margin: 0;
+}
+
+.navigation {
+  border-bottom: 1px solid #f0e8de;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 8px 28px rgba(11, 42, 74, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.navigationInner {
+  position: relative;
+  width: min(100% - 2rem, 1180px);
+  min-height: 84px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.brand {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #0b2a4a;
+  text-decoration: none;
+}
+
+.logo,
+.logoFallback {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+}
+
+.logo {
+  object-fit: contain;
+}
+
+.logoFallback {
+  display: grid;
+  place-items: center;
+  background: var(--header-primary);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 900;
+  box-shadow: 0 10px 22px color-mix(
+    in srgb,
+    var(--header-primary) 25%,
+    transparent
+  );
+}
+
+.brandText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.brandText strong {
+  max-width: 260px;
+  overflow: hidden;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brandText small {
+  margin-top: 0.2rem;
+  color: #7b8797;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.nav > a:not(.mobilePortalButton) {
+  position: relative;
+  padding: 0.7rem 0;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav > a:not(.mobilePortalButton)::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.25rem;
+  left: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--header-secondary);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.nav > a:not(.mobilePortalButton):hover::after,
+.nav > a:not(.mobilePortalButton):focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.portalButton,
+.mobilePortalButton {
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--header-secondary);
+  color: #ffffff;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.portalButton {
+  min-height: 44px;
+  display: inline-flex;
+  padding: 0 1.1rem;
+  white-space: nowrap;
+}
+
+.mobilePortalButton {
+  display: none;
+}
+
+.menuButton {
+  width: 44px;
+  height: 44px;
+  display: none;
+  border: 0;
+  border-radius: 14px;
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+.menuButton span {
+  width: 20px;
+  height: 2px;
+  display: block;
+  margin: 4px auto;
+  border-radius: 999px;
+  background: #0b2a4a;
+}
+
+.portalButton:focus-visible,
+.mobilePortalButton:focus-visible,
+.menuButton:focus-visible,
+.brand:focus-visible,
+.nav a:focus-visible {
+  outline: 4px solid color-mix(
+    in srgb,
+    var(--header-primary) 25%,
+    transparent
+  );
+  outline-offset: 4px;
+}
+
+@media (max-width: 960px) {
+  .utilityInner p:last-child {
+    display: none;
+  }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-top: 0;
+    border-radius: 0 0 20px 20px;
+    background: #ffffff;
+    box-shadow: 0 24px 48px rgba(11, 42, 74, 0.14);
+  }
+
+  .navOpen {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav > a:not(.mobilePortalButton) {
+    padding: 0.85rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .nav > a:not(.mobilePortalButton):hover {
+    background: #f8fafc;
+  }
+
+  .nav > a:not(.mobilePortalButton)::after {
+    display: none;
+  }
+
+  .menuButton {
+    display: block;
+  }
+
+  .portalButton {
+    display: none;
+  }
+
+  .mobilePortalButton {
+    min-height: 46px;
+    display: flex;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .utilityInner {
+    min-height: 34px;
+  }
+
+  .navigationInner {
+    min-height: 74px;
+  }
+
+  .logo,
+  .logoFallback {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+
+  .brandText strong {
+    max-width: 180px;
+    font-size: 0.9rem;
+  }
+
+  .brandText small {
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav > a:not(.mobilePortalButton)::after {
+    transition: none;
+  }
+}

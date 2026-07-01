@@ -6,6 +6,7 @@ export const mockSchoolWebsites: Record<string, PublicSchoolWebsite> = {
       name: "Bright Future Academy",
       slug: "bright-future",
       logoUrl: null,
+      studentPortalUrl: "https://portal.example.com/login",
     },
     website: {
       themeKey: "kidza-home-2",
@@ -24,6 +25,7 @@ export const mockSchoolWebsites: Record<string, PublicSchoolWebsite> = {
       name: "Excellence Academy",
       slug: "excellence-academy",
       logoUrl: null,
+      studentPortalUrl: "https://portal.example.com/login",
     },
     website: {
       themeKey: "kidza-home-2",
