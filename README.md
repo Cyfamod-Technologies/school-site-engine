@@ -71,7 +71,9 @@ curl -i http://127.0.0.1:8000/api/v1/public/schools/does-not-exist/website
 pnpm dev
 ```
 
-Open `http://localhost:3000/schools/{schoolSlug}`, using a slug that actually exists (and is published) in your local Laravel database — check via `php artisan tinker` (`App\Models\SchoolWebsite::with('school')->get()`) if you're not sure what's there.
+Open `http://localhost:3001/schools/{schoolSlug}`, using a slug that actually exists (and is published) in your local Laravel database — check via `php artisan tinker` (`App\Models\SchoolWebsite::with('school')->get()`) if you're not sure what's there.
+
+This app runs on port **3001** (pinned in `package.json`), not the Next.js default of 3000, specifically to avoid colliding with the authenticated admin frontend (`school-fe-nextjs`), which also defaults to port 3000. If you run both apps side by side (needed to test the publish → view-live-site flow end to end), they need distinct ports or the admin app's "View Public Website" link silently breaks.
 
 ## Environment variables
 
