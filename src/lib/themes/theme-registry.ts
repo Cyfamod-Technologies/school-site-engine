@@ -6,14 +6,15 @@ import type {
   ThemeProps,
 } from "@/lib/contracts/website";
 
-type ThemeComponent = ComponentType<ThemeProps>;
-
-const themeRegistry: Record<ThemeKey, ThemeComponent> = {
+export const themeRegistry: Record<
+  ThemeKey,
+  ComponentType<ThemeProps>
+> = {
   "kidza-home-2": KidzaHome2Theme,
 };
 
 export function getThemeComponent(
   themeKey: ThemeKey,
-): ThemeComponent {
+): ComponentType<ThemeProps> {
   return themeRegistry[themeKey];
 }
