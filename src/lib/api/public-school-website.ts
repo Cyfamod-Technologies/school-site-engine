@@ -21,8 +21,15 @@ const programmeSchema = z.object({
     imageUrl: z.string().nullable(),
 });
 
-const publicSchoolWebsiteSchema: z.ZodType<PublicSchoolWebsite> =
-    z.object({
+/**
+ * Shared by both the published-only public schema and the preview schema
+ * (which additionally accepts "draft"/"unpublished") -- everything else
+ * about the contract is identical between the two.
+ */
+function buildSchoolWebsiteSchema(
+    statusSchema: z.ZodType<PublicSchoolWebsite["website"]["status"]>,
+): z.ZodType<PublicSchoolWebsite> {
+    return z.object({
         contractVersion: z.literal(1),
 
         school: z.object({
@@ -33,7 +40,7 @@ const publicSchoolWebsiteSchema: z.ZodType<PublicSchoolWebsite> =
         }),
 
         website: z.object({
-            status: z.literal("published"),
+            status: statusSchema,
             themeKey: z.literal("kidza-home-2"),
 
             branding: z.object({
@@ -119,6 +126,19 @@ const publicSchoolWebsiteSchema: z.ZodType<PublicSchoolWebsite> =
             updatedAt: z.string(),
         }),
     });
+}
+
+const publicSchoolWebsiteSchema = buildSchoolWebsiteSchema(
+    z.literal("published"),
+);
+
+const previewSchoolWebsiteSchema = buildSchoolWebsiteSchema(
+    z.union([
+        z.literal("draft"),
+        z.literal("published"),
+        z.literal("unpublished"),
+    ]),
+);
 
 export class SchoolWebsiteNotFoundError extends Error {
     constructor(schoolSlug: string) {
@@ -212,6 +232,97 @@ export async function getPublicSchoolWebsite(
 
         throw new SchoolWebsiteApiError(
             "The public school website API response does not match contract version 1.",
+            502,
+        );
+    }
+
+    return result.data;
+}
+
+export class SchoolWebsitePreviewLinkInvalidError extends Error {
+    constructor() {
+        super(
+            "This preview link is invalid or has expired. Request a new one from Website Management.",
+        );
+
+        this.name = "SchoolWebsitePreviewLinkInvalidError";
+    }
+}
+
+/**
+ * Fetches a school's website through the signed preview endpoint (SWT-012),
+ * which reveals draft/unpublished content -- unlike getPublicSchoolWebsite(),
+ * which only ever returns published content. `expires` and `signature` come
+ * from the query string of a link issued by
+ * POST /api/v1/school/website/preview-link on the authenticated admin API;
+ * Laravel validates them server-side, this function does not re-derive or
+ * check the signature itself.
+ */
+export async function getPreviewSchoolWebsite(
+    schoolSlug: string,
+    signatureParams: { expires: string; signature: string },
+): Promise<PublicSchoolWebsite> {
+    const apiBaseUrl = getLaravelApiBaseUrl();
+    const encodedSchoolSlug = encodeURIComponent(schoolSlug);
+    const query = new URLSearchParams({
+        expires: signatureParams.expires,
+        signature: signatureParams.signature,
+    });
+
+    let response: Response;
+
+    try {
+        response = await fetch(
+            `${apiBaseUrl}/public/schools/${encodedSchoolSlug}/website/preview?${query.toString()}`,
+            {
+                headers: {
+                    Accept: "application/json",
+                },
+                cache: "no-store",
+            },
+        );
+    } catch {
+        throw new SchoolWebsiteApiError(
+            "The public school website service could not be reached.",
+        );
+    }
+
+    if (response.status === 403) {
+        throw new SchoolWebsitePreviewLinkInvalidError();
+    }
+
+    if (response.status === 404) {
+        throw new SchoolWebsiteNotFoundError(schoolSlug);
+    }
+
+    if (!response.ok) {
+        throw new SchoolWebsiteApiError(
+            `The preview API returned HTTP ${response.status}.`,
+            response.status,
+        );
+    }
+
+    let payload: unknown;
+
+    try {
+        payload = await response.json();
+    } catch {
+        throw new SchoolWebsiteApiError(
+            "The preview API returned invalid JSON.",
+            response.status,
+        );
+    }
+
+    const result = previewSchoolWebsiteSchema.safeParse(payload);
+
+    if (!result.success) {
+        console.error(
+            "Invalid preview school website API response:",
+            result.error.flatten(),
+        );
+
+        throw new SchoolWebsiteApiError(
+            "The preview API response does not match contract version 1.",
             502,
         );
     }
