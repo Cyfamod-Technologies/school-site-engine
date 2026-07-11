@@ -1,6 +1,14 @@
 import { z } from "zod";
 
-import type { PublicSchoolWebsite } from "@/lib/contracts/website";
+import { themeDefinitions } from "@/lib/contracts/website";
+import type { PublicSchoolWebsite, ThemeKey } from "@/lib/contracts/website";
+
+// Derived from themeDefinitions instead of a hardcoded literal so this
+// validator can't silently drift out of sync with the theme registry --
+// adding a new theme to themeDefinitions is enough, no edit needed here.
+const themeKeySchema = z.enum(
+    Object.keys(themeDefinitions) as [ThemeKey, ...ThemeKey[]],
+);
 
 const actionSchema = z.object({
     label: z.string(),
@@ -41,7 +49,7 @@ function buildSchoolWebsiteSchema(
 
         website: z.object({
             status: statusSchema,
-            themeKey: z.literal("kidza-home-2"),
+            themeKey: themeKeySchema,
 
             branding: z.object({
                 primaryColor: z.string(),
