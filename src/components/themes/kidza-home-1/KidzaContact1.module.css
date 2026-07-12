@@ -1,0 +1,107 @@
+.section {
+  padding: 5rem 0;
+  background: #fffbea;
+}
+
+.inner {
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+  border-radius: 28px;
+  border: 4px solid #0b0f19;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 #0b0f19;
+}
+
+.detailsColumn {
+  padding: 3rem;
+  background: #ffffff;
+}
+
+@media (max-width: 860px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 3px solid #0b0f19;
+  background: #93c5fd;
+  color: #0b0f19;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 1.5rem;
+  color: #0b0f19;
+  font-size: 1.75rem;
+  font-weight: 900;
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0;
+}
+
+.detailRow dt {
+  margin: 0 0 0.2rem;
+  color: color-mix(in srgb, #0b0f19 60%, transparent);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.detailRow dd {
+  margin: 0;
+  color: #0b0f19;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.detailRow a {
+  color: #0b0f19;
+  text-decoration: none;
+}
+
+.detailRow a:hover {
+  text-decoration: underline;
+}
+
+.mapColumn {
+  min-height: 280px;
+  background: var(--theme-secondary, #f97316);
+  border-left: 4px solid #0b0f19;
+}
+
+@media (max-width: 860px) {
+  .mapColumn {
+    border-left: none;
+    border-top: 4px solid #0b0f19;
+  }
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  border: 0;
+  display: block;
+}
+
+.mapFallback {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
