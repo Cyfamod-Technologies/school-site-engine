@@ -22,7 +22,8 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: "School Website",
-  description: "A public website for schools using this platform.",
+  description:
+    "A public website for schools using the Cyfamod School Management System platform.",
 };
 
 export default function RootLayout({
