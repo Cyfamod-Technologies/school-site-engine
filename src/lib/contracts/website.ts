@@ -4,6 +4,11 @@ export const themeDefinitions = {
     family: "kidza",
     sourceVariant: "index-2.html",
   },
+  "kidza-home-3": {
+    displayName: "Kidza Home 3",
+    family: "kidza",
+    sourceVariant: "index-3.html",
+  },
 } as const;
 
 export type ThemeKey = keyof typeof themeDefinitions;
