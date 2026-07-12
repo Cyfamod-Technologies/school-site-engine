@@ -1,4 +1,9 @@
 export const themeDefinitions = {
+  "kidza-home-1": {
+    displayName: "Kidza Home 1",
+    family: "kidza",
+    sourceVariant: "index.html",
+  },
   "kidza-home-2": {
     displayName: "Kidza Home 2",
     family: "kidza",
