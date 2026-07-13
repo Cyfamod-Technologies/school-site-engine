@@ -2,7 +2,35 @@ import type { NextConfig } from "next";
 
 const adminAppOrigin = process.env.ADMIN_APP_ORIGIN || "http://localhost:3000";
 
+// Derived from LARAVEL_API_BASE_URL (already required elsewhere) instead of
+// a hardcoded hostname -- school logos/hero images are served from the
+// backend's own storage disk, and next/image's optimizer 400s any remote
+// src whose host isn't explicitly allowlisted. Whatever backend this app
+// points at is automatically the allowlisted image host too.
+function backendStorageHostname(): string | null {
+  const raw = process.env.LARAVEL_API_BASE_URL?.trim();
+  if (!raw) return null;
+  try {
+    return new URL(raw).hostname;
+  } catch {
+    return null;
+  }
+}
+
+const backendHostname = backendStorageHostname();
+
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: backendHostname
+      ? [
+          {
+            protocol: "https" as const,
+            hostname: backendHostname,
+            pathname: "/storage/**",
+          },
+        ]
+      : [],
+  },
   async headers() {
     return [
       {
