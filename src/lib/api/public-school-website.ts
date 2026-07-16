@@ -148,6 +148,61 @@ const previewSchoolWebsiteSchema = buildSchoolWebsiteSchema(
     ]),
 );
 
+// Admins type plain site-relative paths into Hero/Admissions action links
+// (e.g. "/about", "/apply") without knowing the public site nests every
+// school under /schools/{slug} -- left as-is, those links would 404 by
+// pointing at the site root instead of the current school. External URLs
+// (or already-prefixed paths) pass through untouched.
+function resolveInternalHref(href: string, schoolSlug: string): string {
+    if (!href.startsWith("/") || href.startsWith("//")) {
+        return href;
+    }
+    const schoolPrefix = `/schools/${schoolSlug}`;
+    if (href === schoolPrefix || href.startsWith(`${schoolPrefix}/`)) {
+        return href;
+    }
+    return `${schoolPrefix}${href}`;
+}
+
+function resolveInternalLinks(
+    data: PublicSchoolWebsite,
+): PublicSchoolWebsite {
+    const slug = data.school.slug;
+    return {
+        ...data,
+        website: {
+            ...data.website,
+            hero: {
+                ...data.website.hero,
+                primaryAction: {
+                    ...data.website.hero.primaryAction,
+                    href: resolveInternalHref(
+                        data.website.hero.primaryAction.href,
+                        slug,
+                    ),
+                },
+                secondaryAction: {
+                    ...data.website.hero.secondaryAction,
+                    href: resolveInternalHref(
+                        data.website.hero.secondaryAction.href,
+                        slug,
+                    ),
+                },
+            },
+            admissions: {
+                ...data.website.admissions,
+                action: {
+                    ...data.website.admissions.action,
+                    href: resolveInternalHref(
+                        data.website.admissions.action.href,
+                        slug,
+                    ),
+                },
+            },
+        },
+    };
+}
+
 export class SchoolWebsiteNotFoundError extends Error {
     constructor(schoolSlug: string) {
         super(`No published website was found for "${schoolSlug}".`);
@@ -244,7 +299,7 @@ export async function getPublicSchoolWebsite(
         );
     }
 
-    return result.data;
+    return resolveInternalLinks(result.data);
 }
 
 export class SchoolWebsitePreviewLinkInvalidError extends Error {
@@ -335,5 +390,5 @@ export async function getPreviewSchoolWebsite(
         );
     }
 
-    return result.data;
+    return resolveInternalLinks(result.data);
 }
