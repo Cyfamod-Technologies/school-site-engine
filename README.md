@@ -31,6 +31,28 @@ Resolved theme component renders the page
 - Every response is validated at runtime against a Zod schema (`src/lib/api/public-school-website.ts`) before it reaches a theme component. A backend response that drifts from the contract fails loudly instead of rendering broken UI.
 - Themes are resolved by `themeKey` via a registry (`src/lib/themes/theme-registry.ts`), so adding a new theme doesn't require changing the route.
 
+## Custom domains (Go Live)
+
+Schools can also go live on their own custom domain instead of the shared `/schools/{schoolSlug}` path — a school with domain `example.ng` is reachable at `https://example.ng`, no slug in the URL at all. `src/proxy.ts` handles this:
+
+```
+Incoming request, Host header e.g. "example.ng"
+        │
+        ▼
+Is this host one of PASSTHROUGH_HOSTS (this app's own domain)?
+  yes → serve normally, skip domain resolution entirely
+  no  → continue
+        │
+        ▼
+GET {LARAVEL_API_BASE_URL}/public/schools/resolve-domain?domain=example.ng
+        │
+        ▼
+Rewrite the request to /schools/{resolvedSlug} internally
+(the visitor never sees the slug in their URL bar)
+```
+
+A school only becomes reachable this way once Cyfamod approves their Go Live request (handled by the private `sms-enterprise-edition` service) and the same `published`-and-`activated` gate `school-be-laravel` already enforces for the shared slug path applies here too -- this middleware doesn't bypass that gate, it just adds a second way to reach the same gated endpoint.
+
 ## Requirements
 
 - Node.js 20+
@@ -82,6 +104,8 @@ All variables are documented in [`.env.example`](./.env.example).
 | Variable | Scope | Description |
 |---|---|---|
 | `LARAVEL_API_BASE_URL` | Server-only | Base URL of the Laravel API including `/api/v1`, e.g. `http://127.0.0.1:8000/api/v1`. Not prefixed with `NEXT_PUBLIC_` — this app only calls Laravel from server components, never the browser, so there's no reason to expose it client-side. |
+| `PASSTHROUGH_HOSTS` | Server-only | Comma-separated list of this app's own deployment domains (e.g. `localhost:3001`), so `proxy.ts` knows not to attempt domain resolution against its own address. Without this correctly set per environment, every request to this app's own domain would attempt (and fail) a domain lookup instead of serving normally. |
+| `ADMIN_APP_ORIGIN` | Server-only | Origin allowed to embed `/schools/{slug}/preview` in an iframe (the admin frontend, `school-fe-nextjs`) — used to set a scoped CSP `frame-ancestors` header. |
 
 ## Project structure
 

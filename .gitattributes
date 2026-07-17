@@ -1,0 +1,5 @@
+# Third-party theme assets (Bootstrap, Font Awesome, animate.css, etc.),
+# copied in wholesale as part of a theme template -- not code anyone here
+# wrote. Without this, GitHub's language detector counts their raw byte
+# size and reports this repo as primarily CSS instead of TypeScript.
+public/themes/**/assets/** linguist-vendored
