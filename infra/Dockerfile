@@ -2,7 +2,7 @@
 # middleware and renders their site through selectable themes, so unlike the
 # purely static sites elsewhere in the org, it needs a running Node runtime
 # in production (SSR), not just a static export.
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
