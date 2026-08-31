@@ -139,3 +139,6 @@ src/
 ## 💬 Support
 
 - 📫 [Open an Issue](https://github.com/Cyfamod-Technologies/school-public-web/issues)
+
+
+<!-- Security scan triggered at 2026-08-31 18:23:17 -->
